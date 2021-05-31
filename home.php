@@ -1,7 +1,7 @@
 <?php
-session_start();
+include "session.php";
 include "database.php";
-if (isset($_SESSION['a_no']) && isset($_SESSION['first_name'] )) {
+if (isset($_SESSION['user']['a_no']) && isset($_SESSION['user']['first_name'])) {}
     
 ?>
 <?php
@@ -31,11 +31,3 @@ if (isset($_SESSION['a_no']) && isset($_SESSION['first_name'] )) {
 </form>
 </body>
 </html>
-
-<?php
-}else{
-    header("Location: index.php");
-    exit();
-}
-
-?>

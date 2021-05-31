@@ -1,6 +1,9 @@
 <?php
-session_start();
+include "session.php";
 include "database.php";
+global $conn;
+global $sql;
+
 
 if (isset($_POST['acct']) && isset($_POST['pin'])) {
 function validate($data){
@@ -26,15 +29,9 @@ function validate($data){
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
             if ($row['a_no'] === $acct && $row['puk'] === $pin) {
-                $_SESSION['last_name'] = $row ['last_name'];
-                $_SESSION['ctn'] = $row ['ctn'];
-                $_SESSION['first_name'] = $row ['first_name'];
-                $_SESSION['id'] = $row ['id'];
-                $_SESSION['a_no'] = $row ['a_no'];
-                $_SESSION['puk'] = $row ['puk'];
-                $_SESSION['balance'] = $row ['balance'];
+                $_SESSION['user'] = $row;
                 header("Location: home.php");
-            exit();
+                exit();
                 
         }else{
             header("Location: index.php?error=Incorrect Account Number or PIN");

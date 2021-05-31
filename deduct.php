@@ -1,6 +1,9 @@
 <?php
-session_start();
+include "session.php";
 include "database.php";
+include "login.php";
+global $conn;
+global $sql;
 ?>
 <?php
     if (isset($_POST['Withdraw'])){
@@ -8,11 +11,14 @@ include "database.php";
         // deductamt = amt inputted to be used to deduct
         // deductbal = SQL CODE OF DEDUCTED BALANCE
         
-        while
+        $sql = sprintf('SELECT * FROM accounts WHERE a_no="%s" AND puk="%s"', $_SESSION['a_no'], $_SESSION['puk']);
+        
+        $result = mysqli_query($conn, $sql);
+        while($row=mysqli_fetch_array($result))
             {
                 $withdrawbal = $deductamt - $_SESSION['balance'];
             }
-            $deductedbal = ("UPDATE accounts SET balance = '$withdrawbal' WHERE a_no = '$a_no'") or die(mysql_error()." while running \"UPDATE accounts SET balance = '$withdrawbal' WHERE a_no = '$a_no'\"");
+            $deductedbal = ("UPDATE accounts SET balance = '$withdrawbal' WHERE a_no = '%d'") or die(mysql_error()." while running \"UPDATE accounts SET balance = '$withdrawbal' WHERE a_no = '$acct'\"");
     }
         
     
